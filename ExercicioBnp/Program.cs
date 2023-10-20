@@ -60,4 +60,3 @@ void ConfigureMiddlewares(WebApplication app)
     app.UseAuthorization();
     app.MapControllers();
 }
-app.Run();
