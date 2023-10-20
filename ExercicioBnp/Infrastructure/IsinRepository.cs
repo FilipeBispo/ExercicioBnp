@@ -22,7 +22,7 @@ namespace ExercicioBnp.Infrastructure
         {
             try {
                 using var connection = new SqlConnection(_connectionString);
-                const string query = "SELECT Identifier, Price FROM Isins WHERE Identifier = @Identifier";
+                const string query = "SELECT Identifier, Price FROM Isin WHERE Identifier = @Identifier";
 
                 var isin = await connection.QuerySingleOrDefaultAsync<Isin>(query, new { Identifier = isinIdentifier });
 
@@ -39,7 +39,7 @@ namespace ExercicioBnp.Infrastructure
             try
             {
                 using var connection = new SqlConnection(_connectionString);
-                const string query = "INSERT INTO Isins (Identifier, Price) VALUES (@Identifier, @Price)";
+                const string query = "INSERT INTO Isin (Identifier, Price) VALUES (@Identifier, @Price)";
                 await connection.ExecuteAsync(query, isin);
             }
             catch (SqlException ex)
@@ -54,7 +54,7 @@ namespace ExercicioBnp.Infrastructure
             try
             {
                 using var connection = new SqlConnection(_connectionString);
-                var sql = @"INSERT INTO Isins (Identifier, Price) VALUES (@Identifier, @Price)";
+                var sql = @"INSERT INTO Isin (Identifier, Price) VALUES (@Identifier, @Price)";
                 await connection.ExecuteAsync(sql, isins);
             }
             catch (SqlException ex)

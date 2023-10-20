@@ -39,6 +39,7 @@ namespace ExercicioBnp.Commands.Handler
                     batchInsertIsin.Add(newIsin);
                 }
             }
+            await _isinRepository.BatchInsertAsync(batchInsertIsin);
 
             return Unit.Value;
         }
