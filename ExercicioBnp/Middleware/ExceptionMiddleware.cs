@@ -34,7 +34,7 @@ namespace ExercicioBnp.Middleware
             else
             {
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                await httpContext.Response.WriteAsync($"An unexpected error occurred.");
+                await httpContext.Response.WriteAsync($"An unexpected error occurred. ");
             }
         }
     }

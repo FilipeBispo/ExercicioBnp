@@ -1,4 +1,4 @@
-﻿namespace ExercicioBnp.Model
+﻿namespace ExercicioBnp.Settings
 {
     public class IsinSettings
     {

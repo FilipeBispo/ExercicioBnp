@@ -1,6 +1,8 @@
 ﻿using ExercicioBnp.Exceptions;
 using ExercicioBnp.Infrastructure;
 using ExercicioBnp.Services.Interfaces;
+using ExercicioBnp.Settings;
+using Microsoft.Extensions.Options;
 
 namespace ExercicioBnp.Services
 {
@@ -8,18 +10,20 @@ namespace ExercicioBnp.Services
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<ExternalPriceService> _logger;
+        private readonly string _baseUrl;
 
-        public ExternalPriceService(HttpClient httpClient, ILogger<ExternalPriceService> logger)
+        public ExternalPriceService(HttpClient httpClient, ILogger<ExternalPriceService> logger, IOptions<ExternalPriceServiceSettings> settings)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _baseUrl = settings.Value.BaseUrl;
         }
 
         public async Task<decimal> GetPriceForIsin(string isinIdentifier)
         {
             try
             {
-                var response = await _httpClient.GetAsync($"https://securities.dataprovider.com/securityprice/{isinIdentifier}");
+                var response = await _httpClient.GetAsync($"{_baseUrl}/securityprice/{isinIdentifier}");
 
                 response.EnsureSuccessStatusCode();
 

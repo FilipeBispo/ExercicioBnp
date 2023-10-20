@@ -1,9 +1,9 @@
 using ExercicioBnp.Infrastructure;
 using ExercicioBnp.Infrastructure.Interfaces;
 using ExercicioBnp.Middleware;
-using ExercicioBnp.Model;
 using ExercicioBnp.Services;
 using ExercicioBnp.Services.Interfaces;
+using ExercicioBnp.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,6 +35,8 @@ void ConfigureServices(WebApplicationBuilder builder)
 
     builder.Services.AddOptions();
     builder.Services.Configure<IsinSettings>(builder.Configuration.GetSection("IsinSettings"));
+    builder.Services.Configure<ExternalPriceServiceSettings>(builder.Configuration.GetSection("ExternalPriceServiceSettings"));
+
 }
 
 void ConfigureLogging(WebApplicationBuilder builder)
