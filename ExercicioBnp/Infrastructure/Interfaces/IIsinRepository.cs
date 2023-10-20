@@ -6,6 +6,7 @@ namespace ExercicioBnp.Infrastructure.Interfaces
     {
         Task<Isin?> GetByIsinIdentifierAsync(string isinIdentifier);
         Task InsertAsync(Isin isin);
+        Task BatchInsertAsync(IEnumerable<Isin> isins);
 
     }
 }

@@ -31,8 +31,10 @@ namespace ExercicioBnp.Tests.UnitTests.Handlers
         {
             // Arrange
             string testIsinIdentifier = "TEST12345678";
+
             _mockIsinRepository.Setup(repo => repo.GetByIsinIdentifierAsync(testIsinIdentifier)).ReturnsAsync((Isin)null);
             _mockPriceService.Setup(service => service.GetPriceForIsin(testIsinIdentifier)).ReturnsAsync(100.0m);
+            _mockIsinRepository.Setup(repo => repo.BatchInsertAsync(It.IsAny<IEnumerable<Isin>>())).Returns(Task.CompletedTask);  // Mocking the batch insert method
 
             var handler = new RegisterIsinCommandHandler(
                 _mockIsinRepository.Object,
@@ -50,6 +52,7 @@ namespace ExercicioBnp.Tests.UnitTests.Handlers
             // Assert
             _mockIsinRepository.Verify(repo => repo.GetByIsinIdentifierAsync(testIsinIdentifier), Times.Once);
             _mockPriceService.Verify(service => service.GetPriceForIsin(testIsinIdentifier), Times.Once);
+            _mockIsinRepository.Verify(repo => repo.BatchInsertAsync(It.Is<IEnumerable<Isin>>(list => list.Any(isin => isin.Identifier == testIsinIdentifier))), Times.Once);  // Verify the batch insert method is called with a list containing the new ISIN
             Assert.Equal(Unit.Value, result);
         }
 
